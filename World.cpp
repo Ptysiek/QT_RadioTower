@@ -6,7 +6,7 @@ World::World():
     _radioTowers(initRadioTowers())
 {}
 
-std::vector<std::vector<Tile> > World::initTiles() {
+std::vector<std::vector<Tile> > World::initTiles() const {
     std::vector<std::vector<Tile>> rows(_matrixSize);
     for (auto& row : rows) {
         row.resize(_matrixSize);
@@ -14,6 +14,10 @@ std::vector<std::vector<Tile> > World::initTiles() {
     return rows;
 }
 
-std::vector<RadioTower> World::initRadioTowers() {
-    return {{2,13,5}, {52,60,4}, {18,60,11}, {86,96,58}, {66,15,49}};
+std::vector<std::shared_ptr<RadioTower>> World::initRadioTowers() const {
+    return { std::make_shared<RadioTower>(2,13,5),
+                std::make_shared<RadioTower>(52,60,4),
+                std::make_shared<RadioTower>(18,60,11),
+                std::make_shared<RadioTower>(86,96,58),
+                std::make_shared<RadioTower>(66,15,49) };
 }
