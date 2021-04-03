@@ -32,12 +32,20 @@ std::vector<std::vector<Tile> > World::initTiles() const {
 }
 
 std::vector<std::shared_ptr<RadioTower>> World::initRadioTowers() const {
-    return { std::make_shared<RadioTower>(1,2,1),
-                std::make_shared<RadioTower>(6,2,1),
-                std::make_shared<RadioTower>(8,10,1),
-                std::make_shared<RadioTower>(3,10,2),
-                std::make_shared<RadioTower>(13,16,10),
-                std::make_shared<RadioTower>(11,3,8) };
+    const int smallRange = _matrixSize / 4;
+    const int mediumRange = (_matrixSize * 2) / 3;
+    const int fullRange = _matrixSize;
+
+    return { std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(2, smallRange)),
+                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(2, smallRange)),
+                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
+                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
+                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)),
+                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)) };
+}
+
+int World::random(int a, int b) const {
+    return QRandomGenerator::global()->bounded(a, b);
 }
 
 void World::putRadioTowersOnTiles() {

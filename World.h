@@ -3,6 +3,7 @@
 #include <exception>
 #include <memory>
 #include <vector>
+#include <QRandomGenerator>
 
 #include "RadioTower.h"
 #include "Tile.h"
@@ -23,6 +24,7 @@ public:
 private:
     std::vector<std::vector<Tile>> initTiles() const;
     std::vector<std::shared_ptr<RadioTower>> initRadioTowers() const;
+    int random(int a, int b) const;
     void putRadioTowersOnTiles();
     void setTiles(std::shared_ptr<RadioTower> radioTower);
 };
