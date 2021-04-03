@@ -7,12 +7,12 @@ void Map::lookup(const World &world) const {
 
 void Map::drawMap(const World &world) const {
     for (const auto& row : world.tiles()) {
-        QString str;
+        std::string str;
         for (const auto& tile : row) {
             str += " ";
-            str += QString::number(tile.contentSize());
+            str += std::to_string(tile.contentSize());
         }
-        qInfo() << str;
+        qInfo("%s", str.c_str());
     }
 }
 
@@ -20,6 +20,6 @@ void Map::drawRadioInfo(const World &world) const {
     const auto& radio = world.radio();
     const auto& tile = world.tile(radio.x(), radio.y());
     const size_t numberOfStations = tile.contentSize();
-    qInfo() << "Current radio position: [" << radio.x() << ", " << radio.y() << "]";
-    qInfo() << "Number of available stations: [" << numberOfStations << "]";
+    qInfo() << " Current radio position: [" << radio.x() << ", " << radio.y() << "]";
+    qInfo() << " Number of available stations: [" << numberOfStations << "]";
 }

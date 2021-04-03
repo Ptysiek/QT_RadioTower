@@ -5,9 +5,11 @@
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
-
-    Program program;
-    program.execute();
-
+    while (true) {
+        Program program;
+        if (!program.execute()) {
+            break;
+        }
+    }
     return a.exec();
 }
