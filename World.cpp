@@ -11,13 +11,13 @@ World::World():
 
 const std::vector<std::vector<Tile> > &World::tiles() const { return _tiles; }
 
-Tile &World::tile(size_t x, size_t y) {
+const Tile& World::tile(size_t x, size_t y) const {
     return _tiles.at(y).at(x);
 }
 
 bool World::setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower) {
     try {
-        auto& choosenTile = tile(x, y);
+        auto& choosenTile = _tiles.at(y).at(x);
         choosenTile._towersInRange.push_back(radioTower);
         return true;
     }

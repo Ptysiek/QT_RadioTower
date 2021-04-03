@@ -19,8 +19,9 @@ class World {
 public:
     World();
 
+    const Radio& radio() const { return _radio; }
     const std::vector<std::vector<Tile>>& tiles() const;
-    Tile& tile(size_t x, size_t y);
+    const Tile& tile(size_t x, size_t y) const;
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
 
 private:
