@@ -9,6 +9,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
         RadioTower.cpp \
+        World.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     Channel.h \
-    RadioTower.h
+    RadioTower.h \
+    World.h

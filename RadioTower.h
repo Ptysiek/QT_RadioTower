@@ -18,10 +18,4 @@ class RadioTower {
 public:
     RadioTower(size_t x, size_t y, size_t range);
 
-
-
-
-
 };
-
-

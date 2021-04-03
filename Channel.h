@@ -2,8 +2,7 @@
 
 #include <string>
 
-struct Channel
-{
+struct Channel {
     int _frequency;
     std::string _name;
 };
