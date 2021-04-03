@@ -10,6 +10,7 @@ CONFIG -= app_bundle
 SOURCES += \
         Map.cpp \
         Program.cpp \
+        Radio.cpp \
         RadioTower.cpp \
         World.cpp \
         main.cpp
@@ -23,6 +24,7 @@ HEADERS += \
     Channel.h \
     Map.h \
     Program.h \
+    Radio.h \
     RadioTower.h \
     Tile.h \
     World.h

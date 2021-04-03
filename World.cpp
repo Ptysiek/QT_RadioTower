@@ -2,11 +2,14 @@
 
 World::World():
     _matrixSize(20),
+    _radio(initRadio()),
     _tiles(initTiles()),
     _radioTowers(initRadioTowers())
 {
     putRadioTowersOnTiles();
 }
+
+const std::vector<std::vector<Tile> > &World::tiles() const { return _tiles; }
 
 Tile &World::tile(size_t x, size_t y) {
     return _tiles.at(y).at(x);
@@ -21,6 +24,12 @@ bool World::setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower) 
     catch (const std::out_of_range& e) {
         return false;
     }
+}
+
+Radio World::initRadio() const {
+    return {static_cast<size_t>(random(0, _matrixSize)),
+            static_cast<size_t>(random(0, _matrixSize)),
+            static_cast<size_t>(random(75, 256))};
 }
 
 std::vector<std::vector<Tile> > World::initTiles() const {

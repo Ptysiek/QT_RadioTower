@@ -1,8 +1,8 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 #include <QObject>
+#include <vector>
 
 #include "Channel.h"
 
