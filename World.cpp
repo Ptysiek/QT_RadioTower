@@ -1,7 +1,7 @@
 #include "World.h"
 
 World::World():
-    _matrixSize(100),
+    _matrixSize(20),
     _tiles(initTiles()),
     _radioTowers(initRadioTowers())
 {
@@ -32,11 +32,12 @@ std::vector<std::vector<Tile> > World::initTiles() const {
 }
 
 std::vector<std::shared_ptr<RadioTower>> World::initRadioTowers() const {
-    return { std::make_shared<RadioTower>(2,13,5),
-                std::make_shared<RadioTower>(52,60,4),
-                std::make_shared<RadioTower>(18,60,11),
-                std::make_shared<RadioTower>(86,96,58),
-                std::make_shared<RadioTower>(66,15,49) };
+    return { std::make_shared<RadioTower>(1,2,1),
+                std::make_shared<RadioTower>(6,2,1),
+                std::make_shared<RadioTower>(8,10,1),
+                std::make_shared<RadioTower>(3,10,2),
+                std::make_shared<RadioTower>(13,16,10),
+                std::make_shared<RadioTower>(11,3,8) };
 }
 
 void World::putRadioTowersOnTiles() {

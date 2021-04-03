@@ -16,6 +16,7 @@ class World {
 public:
     World();
 
+    const std::vector<std::vector<Tile>>& tiles() const { return _tiles; }
     Tile& tile(size_t x, size_t y);
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
 
