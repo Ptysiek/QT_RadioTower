@@ -7,5 +7,5 @@
 
 
 struct Tile {
-    std::vector<std::shared_ptr<RadioTower>> _towersInRange;
+    std::vector<std::weak_ptr<RadioTower>> _towersInRange;
 };
