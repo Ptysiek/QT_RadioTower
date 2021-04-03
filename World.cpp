@@ -2,10 +2,11 @@
 
 World::World():
     _matrixSize(20),
-    _radio(initRadio()),
+    _radio(),
     _tiles(initTiles()),
     _radioTowers(initRadioTowers())
 {
+    initRadio();
     putRadioTowersOnTiles();
 }
 
@@ -26,10 +27,10 @@ bool World::setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower) 
     }
 }
 
-Radio World::initRadio() const {
-    return {static_cast<size_t>(random(0, _matrixSize)),
-            static_cast<size_t>(random(0, _matrixSize)),
-            static_cast<size_t>(random(75, 256))};
+void World::initRadio() {
+    _radio.setX(static_cast<size_t>(random(0, _matrixSize)));
+    _radio.setY(static_cast<size_t>(random(0, _matrixSize)));
+    _radio.setFrequency(static_cast<size_t>(random(75, 256)));
 }
 
 std::vector<std::vector<Tile> > World::initTiles() const {

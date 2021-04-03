@@ -25,7 +25,7 @@ public:
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
 
 private:
-    Radio initRadio() const;
+    void initRadio();
     std::vector<std::vector<Tile>> initTiles() const;
     std::vector<std::shared_ptr<RadioTower>> initRadioTowers() const;
     int random(int a, int b) const;
