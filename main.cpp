@@ -1,13 +1,13 @@
 #include <QCoreApplication>
-#include <QDebug>
 
-int main(int argc, char *argv[])
-{
+#include "Program.h"
+
+
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    QTextStream stream(stdin);
-    QString line = stream.readLine();
-    qDebug() << line.trimmed();
+    Program program;
+    program.execute();
 
     return a.exec();
 }
