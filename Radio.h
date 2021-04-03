@@ -11,20 +11,15 @@ class Radio : public QObject {
     bool _isOn;
 
 public:
-    Radio():
-        _x(),
-        _y(),
-        _currentFrequency(),
-        _isOn(false)
-    {}
+    Radio();
 
-    size_t x() const { return _x; }
-    size_t y() const { return _y; }
-    size_t frequency() const { return _currentFrequency; }
-    bool isOn() const { return _isOn; }
+    size_t x() const;
+    size_t y() const;
+    size_t frequency() const;
+    bool isOn() const;
 
-    void setX(const size_t x) { _x = x; }
-    void setY(const size_t y) { _y = y; }
-    void setFrequency(const size_t frequency) { _currentFrequency = frequency; }
+    void setX(const size_t x);
+    void setY(const size_t y);
+    void setFrequency(const size_t frequency);
 };
 
