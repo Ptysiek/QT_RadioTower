@@ -7,22 +7,14 @@
 
 
 class World {
+    const size_t _matrixSize;
     std::vector<std::vector<Tile>> _tiles;
     std::vector<RadioTower> _radioTowers;
 
 public:
-    World():
-        _tiles(),
-        _radioTowers()
-    {}
+    World();
 
 private:
-    std::vector<RadioTower> initRadioTowers() {
-
-    }
-
-    std::vector<std::vector<Tile>> initTiles() {
-
-    }
-
+    std::vector<std::vector<Tile>> initTiles();
+    std::vector<RadioTower> initRadioTowers();
 };
