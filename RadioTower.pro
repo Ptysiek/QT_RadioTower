@@ -20,4 +20,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     Channel.h \
     RadioTower.h \
+    Tile.h \
     World.h

@@ -21,7 +21,7 @@ private:
 
     }
 
-    std::vector<<std::vector<Tile>> initTiles() {
+    std::vector<std::vector<Tile>> initTiles() {
 
     }
 
