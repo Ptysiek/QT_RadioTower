@@ -1,6 +1,10 @@
 #pragma once
+#include <memory>
 #include <string>
 #include <QObject>
+#include <QDebug>
+
+#include "Tile.h"
 
 
 class Radio : public QObject {
@@ -10,6 +14,7 @@ class Radio : public QObject {
     size_t _y;
     size_t _currentFrequency;
     bool _isOn;
+    Tile _lastlyConnected;
 
 public:
     Radio();
@@ -35,9 +40,35 @@ public:
         return std::string();
     }
 
-    void move(const size_t x, const size_t y) {
+    void move(const size_t x, const size_t y, const Tile& tile) {
         _x = x;
         _y = y;
+        disconnectAll();
+        _lastlyConnected = tile;
+        connectAll();
+    }
+
+public slots:
+    void onSignal() {
+        qInfo("%s", listen().c_str());
+    }
+
+private:
+    void disconnectAll() {
+        for (auto& radioTower : _lastlyConnected._towersInRange) {
+            if (radioTower.expired()) {
+                continue;
+            }
+            this->disconnect(std::shared_ptr<RadioTower>{radioTower}.get(), &RadioTower::signal, this, &Radio::onSignal);
+        }
+    }
+    void connectAll() {
+        for (auto& radioTower : _lastlyConnected._towersInRange) {
+            if (radioTower.expired()) {
+                continue;
+            }
+            this->connect(std::shared_ptr<RadioTower>{radioTower}.get(), &RadioTower::signal, this, &Radio::onSignal);
+        }
     }
 };
 

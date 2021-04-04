@@ -20,4 +20,11 @@ public:
     size_t x() const;
     size_t y() const;
     size_t range() const;
+    void broadcast() const {
+        emit signal();
+    }
+
+signals:
+    void signal() const;
+
 };

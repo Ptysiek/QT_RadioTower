@@ -34,7 +34,7 @@ public:
             }
             else if (userInput == "RM") {
                 qInfo() << " enter radio position x y: ";
-                if (moveRadio(radio, _world.size())) {
+                if (moveRadio(radio)) {
                     listenToRadio(radio);
                 }
                 else {
@@ -83,19 +83,19 @@ private:
         qInfo(" radio: \"%s\"", radio.listen().c_str());
     }
 
-    bool moveRadio(Radio& radio, const size_t worldSize) {
+    bool moveRadio(Radio& radio) {
         auto numberInput = getUserInput().split(" ");
         if (numberInput.size() < 2) {
             return false;
         }
-        bool isA = false;
-        bool isB = false;
-        size_t a = static_cast<size_t>(numberInput[0].toInt(&isA));
-        size_t b = static_cast<size_t>(numberInput[1].toInt(&isB));
-        if (!isA || !isB || a > (worldSize - 1) || b > (worldSize - 1)) {
+        bool isX = false;
+        bool isY = false;
+        size_t x = static_cast<size_t>(numberInput[0].toInt(&isX));
+        size_t y = static_cast<size_t>(numberInput[1].toInt(&isY));
+        if (!isX || !isY || x > (_world.size() - 1) || y > (_world.size() - 1)) {
             return false;
         }
-        radio.move(a, b);
+        radio.move(x, y, _world.tile(x, y));
         return true;
     }
 };
