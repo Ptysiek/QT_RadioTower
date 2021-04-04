@@ -16,6 +16,13 @@ class Radio : public QObject {
     bool _isOn;
     Tile _lastlyConnected;
 
+    struct RadioData {
+        std::vector<std::string> _radioTowerID;
+
+    };
+    using ChannelID = std::string;
+    std::map<ChannelID, RadioData> _channels;
+
 public:
     Radio();
 

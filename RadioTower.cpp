@@ -1,7 +1,8 @@
 #include "RadioTower.h"
 
 
-RadioTower::RadioTower(size_t x, size_t y, size_t range):
+RadioTower::RadioTower(const std::string& id, size_t x, size_t y, size_t range):
+    _id(id),
     _x(x),
     _y(y),
     _range(range)

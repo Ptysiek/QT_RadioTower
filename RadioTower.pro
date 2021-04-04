@@ -9,6 +9,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
         Map.cpp \
+        MusicGenreFactory.cpp \
         Program.cpp \
         Radio.cpp \
         RadioTower.cpp \
@@ -23,6 +24,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     Channel.h \
     Map.h \
+    MusicGenreFactory.h \
     Program.h \
     Radio.h \
     RadioTower.h \

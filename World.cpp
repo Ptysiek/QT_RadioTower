@@ -1,12 +1,15 @@
 #include "World.h"
 
 World::World():
+    _minRadioFrequency(75),
+    _maxRadioFrequency(256),
     _matrixSize(20),
     _radio(),
     _tiles(initTiles()),
     _radioTowers(initRadioTowers())
 {
     putRadioTowersOnTiles();
+    giveRadioTowersChannelRepertuars();
     initRadio();
 }
 
@@ -27,13 +30,6 @@ bool World::setTile(const size_t x, const size_t y, std::shared_ptr<RadioTower> 
     }
 }
 
-void World::initRadio() {
-    const size_t x = static_cast<size_t>(random(0, _matrixSize));
-    const size_t y = static_cast<size_t>(random(0, _matrixSize));
-    _radio.move(x, y, this->tile(x, y));
-    _radio.setFrequency(static_cast<size_t>(random(75, 256)));
-}
-
 std::vector<std::vector<Tile> > World::initTiles() const {
     std::vector<std::vector<Tile>> rows(_matrixSize);
     for (auto& row : rows) {
@@ -47,22 +43,58 @@ std::vector<std::shared_ptr<RadioTower>> World::initRadioTowers() const {
     const int mediumRange = (_matrixSize * 2) / 3;
     const int fullRange = _matrixSize;
 
-    return { std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(2, smallRange)),
-                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(2, smallRange)),
-                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
-                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
-                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)),
-                std::make_shared<RadioTower>(random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)) };
-}
-
-int World::random(int a, int b) const {
-    return QRandomGenerator::global()->bounded(a, b);
+    return { std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(2, smallRange)),
+                std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(2, smallRange)),
+                std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
+                std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(smallRange, mediumRange)),
+                std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)),
+                std::make_shared<RadioTower>(generateID(), random(0, fullRange), random(0, fullRange), random(mediumRange, fullRange)) };
 }
 
 void World::putRadioTowersOnTiles() {
     for (auto& radioTower : _radioTowers) {
         setTiles(radioTower);
     }
+}
+
+void World::giveRadioTowersChannelRepertuars() {
+    for (auto& radioTower : _radioTowers) {
+        const size_t quantity = random(2, 7);
+        for (size_t i = 0; i < quantity; ++i) {
+            const size_t frequency = random(_minRadioFrequency, _maxRadioFrequency);
+            const std::string id = generateID();
+            const std::string genre = _musicLabel.at(random(0, _musicLabel.size()));
+            radioTower->addChannel({frequency, id, genre});
+        }
+    }
+}
+
+void World::initRadio() {
+    const size_t x = static_cast<size_t>(random(0, _matrixSize));
+    const size_t y = static_cast<size_t>(random(0, _matrixSize));
+    _radio.move(x, y, this->tile(x, y));
+    _radio.setFrequency(static_cast<size_t>(random(_minRadioFrequency, _maxRadioFrequency)));
+}
+
+std::string World::generateID() const {
+    std::string result;
+    result += randomChar('A', 'Z', 1);
+    result += randomChar('A', 'Z', 1);
+    result += randomChar('A', 'Z', 1);
+    result += '-';
+    result += std::to_string(random(0, 10));
+    result += std::to_string(random(0, 10));
+    result += std::to_string(random(0, 10));
+    result += std::to_string(random(0, 10));
+    return result;
+}
+
+char World::randomChar(char a, char b, size_t offset) const {
+    return static_cast<char>(random(static_cast<int>(a), static_cast<int>(b) + offset));
+}
+
+int World::random(int a, int b) const {
+    return QRandomGenerator::global()->bounded(a, b);
 }
 
 void World::setTiles(std::shared_ptr<RadioTower> radioTower) {
