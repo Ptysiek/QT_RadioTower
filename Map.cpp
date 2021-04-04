@@ -20,6 +20,7 @@ void Map::drawRadioInfo(const World &world) const {
     const auto& radio = world.radio();
     const auto& tile = world.tile(radio.x(), radio.y());
     const size_t numberOfStations = tile.contentSize();
+    qInfo() << " World size: [" << world.size() << "x" << world.size() << "]";
     qInfo() << " Current radio position: [" << radio.x() << ", " << radio.y() << "]";
     qInfo() << " Number of available stations: [" << numberOfStations << "]";
 }

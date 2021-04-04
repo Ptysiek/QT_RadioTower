@@ -6,5 +6,3 @@ struct Channel {
     int _frequency;
     std::string _name;
 };
-
-

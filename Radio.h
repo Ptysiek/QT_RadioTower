@@ -1,6 +1,7 @@
 #pragma once
-
+#include <string>
 #include <QObject>
+
 
 class Radio : public QObject {
     Q_OBJECT
@@ -21,5 +22,22 @@ public:
     void setX(const size_t x);
     void setY(const size_t y);
     void setFrequency(const size_t frequency);
+
+    bool turnRadio() {
+        _isOn = !_isOn;
+        return _isOn;
+    }
+
+    std::string listen() const {
+        if (!_isOn) {
+            return "...";
+        }
+        return std::string();
+    }
+
+    void move(const size_t x, const size_t y) {
+        _x = x;
+        _y = y;
+    }
 };
 

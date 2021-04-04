@@ -19,6 +19,8 @@ class World {
 public:
     World();
 
+    size_t size() const { return _matrixSize; }
+    Radio& radio() { return _radio; }
     const Radio& radio() const { return _radio; }
     const std::vector<std::vector<Tile>>& tiles() const;
     const Tile& tile(size_t x, size_t y) const;
