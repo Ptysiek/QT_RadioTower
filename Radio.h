@@ -3,8 +3,10 @@
 #include <string>
 #include <QObject>
 #include <QDebug>
+#include <vector>
 
 #include "Tile.h"
+#include "Channel.h"
 
 
 class Radio : public QObject {
@@ -15,13 +17,8 @@ class Radio : public QObject {
     size_t _currentFrequency;
     bool _isOn;
     Tile _lastlyConnected;
-
-    struct RadioData {
-        std::vector<std::string> _radioTowerID;
-
-    };
     using ChannelID = std::string;
-    std::map<ChannelID, RadioData> _channels;
+    std::map<ChannelID, Channel> _channels;
 
 public:
     Radio();
@@ -32,47 +29,15 @@ public:
     bool isOn() const;
     void setFrequency(const size_t frequency);
 
-    bool turnRadio() {
-        _isOn = !_isOn;
-        return _isOn;
-    }
-
-    std::string listen() const {
-        if (!_isOn) {
-            return "...";
-        }
-        return std::string();
-    }
-
-    void move(const size_t x, const size_t y, const Tile& tile) {
-        _x = x;
-        _y = y;
-        disconnectAll();
-        _lastlyConnected = tile;
-        connectAll();
-    }
+    bool turnRadio();
+    void move(const size_t x, const size_t y, const Tile& tile);
+    std::string play() const;
 
 public slots:
-    void onSignal() {
-        qInfo("%s", listen().c_str());
-    }
+    void onSignal(const std::vector<Channel>& channels);
 
 private:
-    void disconnectAll() {
-        for (auto& radioTower : _lastlyConnected._towersInRange) {
-            if (radioTower.expired()) {
-                continue;
-            }
-            this->disconnect(std::shared_ptr<RadioTower>{radioTower}.get(), &RadioTower::signal, this, &Radio::onSignal);
-        }
-    }
-    void connectAll() {
-        for (auto& radioTower : _lastlyConnected._towersInRange) {
-            if (radioTower.expired()) {
-                continue;
-            }
-            this->connect(std::shared_ptr<RadioTower>{radioTower}.get(), &RadioTower::signal, this, &Radio::onSignal);
-        }
-    }
+    void disconnectAll();
+    void connectAll();
 };
 

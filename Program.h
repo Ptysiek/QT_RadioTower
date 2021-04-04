@@ -19,18 +19,18 @@ public:
     bool execute() {
         auto& radio = _world.radio();
         while (true) {
+            showSeparator();
+            listenToRadio(radio);
             showInstructionToUserInterface();
             broadcastRadioTowers();
-            auto userInput = getUserInput().trimmed().toUpper();
 
+            auto userInput = getUserInput().trimmed().toUpper();
             if (userInput == "U") {
+                showSeparator();
                 showUserInterface();
             }
             else if (userInput == "M") {
                 _map.lookup(_world);
-            }
-            else if (userInput == "RL") {
-                listenToRadio(radio);
             }
             else if (userInput == "RT") {
                 auto result = radio.turnRadio();
@@ -44,10 +44,10 @@ public:
             }
             else if (userInput == "RS") {
                 qInfo() << " enter radio frequency: ";
-                listenToRadio(radio);
+
             }
             else if (userInput == "RA") {
-                listenToRadio(radio);
+
             }
             else if (userInput == "Q") {
                 qInfo() << " quiting program..";
@@ -61,20 +61,19 @@ public:
     }
 
 private:
+    void showSeparator() {
+        qInfo() << " _________________________________________";
+    }
     void showInstructionToUserInterface() {
-        qInfo() << " _________________________________________\n"
-            << " [u] -> show user interface\n";
+        qInfo() << " [u] -> show user interface\n";
     }
 
     void showUserInterface() {
-        qInfo() << " _________________________________________\n"
-            << " [m] -> show map\n"
-            << " [rl] -> listen radio\n"
+        qInfo() << "  [m] -> show map\n"
             << " [rt] -> turn radio on / off\n"
             << " [rm] -> move radio\n"
             << " [rs] -> set radio frequency\n"
             << " [ra] -> auto-tune radio frequency\n\n"
-
             << " [q] -> quit program\n"
             << " [r] -> restart program\n";
     }
@@ -86,7 +85,7 @@ private:
     }
 
     void listenToRadio(const Radio& radio) {
-        qInfo(" radio: \"%s\"", radio.listen().c_str());
+        qInfo(" radio says: \"%s\"", radio.play().c_str());
     }
 
     bool moveRadio(Radio& radio) {
