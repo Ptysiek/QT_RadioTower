@@ -23,13 +23,13 @@ class World {
 public:
     World();
 
-    size_t size() const { return _matrixSize; }
-    Radio& radio() { return _radio; }
-    const Radio& radio() const { return _radio; }
+    size_t size() const;
+    Radio& radio();
+    const Radio& radio() const;
     const std::vector<std::vector<Tile>>& tiles() const;
     const Tile& tile(size_t x, size_t y) const;
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
-    const std::vector<std::shared_ptr<RadioTower>>& radioTowers() const { return _radioTowers; }
+    const std::vector<std::shared_ptr<RadioTower>>& radioTowers() const;
 
 
 private:

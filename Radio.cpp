@@ -36,7 +36,7 @@ std::string Radio::play() const {
     if (!_isOn) {
         return "...";
     }
-    return std::string();
+    return browseChannels();
 }
 
 void Radio::onSignal(const std::vector<Channel> &channels) {

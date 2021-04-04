@@ -37,6 +37,18 @@ public slots:
     void onSignal(const std::vector<Channel>& channels);
 
 private:
+    std::string browseChannels() const {
+        std::string output = "white-noise";
+        for (const auto& [ID, channel] : _channels) {
+            if ((_currentFrequency -2 < channel._frequency) && (_currentFrequency +2 > channel._frequency)) {
+                return "[channel: " + ID + "]  " + channel._genre;
+            }
+            if ((_currentFrequency -5 < channel._frequency) && (_currentFrequency +5 > channel._frequency)) {
+                output = "distorted-sound";
+            }
+        }
+        return output;
+    }
     void disconnectAll();
     void connectAll();
 };

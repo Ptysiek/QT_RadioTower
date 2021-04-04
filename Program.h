@@ -17,13 +17,8 @@ public:
     {}
 
     bool execute() {
-        auto& radio = _world.radio();
         while (true) {
-            showSeparator();
-            listenToRadio(radio);
-            showInstructionToUserInterface();
-            broadcastRadioTowers();
-
+            updateWorld();
             auto userInput = getUserInput().trimmed().toUpper();
             if (userInput == "U") {
                 showSeparator();
@@ -33,21 +28,19 @@ public:
                 _map.lookup(_world);
             }
             else if (userInput == "RT") {
-                auto result = radio.turnRadio();
+                auto result = _world.radio().turnRadio();
                 qInfo() << " radio is now " << ((result)? "ON" : "OFF");
             }
             else if (userInput == "RM") {
                 qInfo() << " enter radio position x y: ";
-                if (!moveRadio(radio)) {
+                if (!moveRadio(_world.radio())) {
                     qInfo() << " incorrect data typed";
                 }
             }
             else if (userInput == "RS") {
                 qInfo() << " enter radio frequency: ";
-
             }
             else if (userInput == "RA") {
-
             }
             else if (userInput == "Q") {
                 qInfo() << " quiting program..";
@@ -61,6 +54,13 @@ public:
     }
 
 private:
+    void updateWorld() {
+        showSeparator();
+        listenToRadio(_world.radio());
+        showInstructionToUserInterface();
+        broadcastRadioTowers();
+    }
+
     void showSeparator() {
         qInfo() << " _________________________________________";
     }
