@@ -19,10 +19,14 @@ public:
     bool execute() {
         auto& radio = _world.radio();
         while (true) {
-            showUserInterface();
+            showInstructionToUserInterface();
+            broadcastRadioTowers();
             auto userInput = getUserInput().trimmed().toUpper();
 
-            if (userInput == "M") {
+            if (userInput == "U") {
+                showUserInterface();
+            }
+            else if (userInput == "M") {
                 _map.lookup(_world);
             }
             else if (userInput == "RL") {
@@ -34,10 +38,7 @@ public:
             }
             else if (userInput == "RM") {
                 qInfo() << " enter radio position x y: ";
-                if (moveRadio(radio)) {
-                    listenToRadio(radio);
-                }
-                else {
+                if (!moveRadio(radio)) {
                     qInfo() << " incorrect data typed";
                 }
             }
@@ -60,6 +61,11 @@ public:
     }
 
 private:
+    void showInstructionToUserInterface() {
+        qInfo() << " _________________________________________\n"
+            << " [u] -> show user interface\n";
+    }
+
     void showUserInterface() {
         qInfo() << " _________________________________________\n"
             << " [m] -> show map\n"
@@ -97,6 +103,12 @@ private:
         }
         radio.move(x, y, _world.tile(x, y));
         return true;
+    }
+
+    void broadcastRadioTowers() {
+        for (const auto& radioTower : _world.radioTowers()) {
+            radioTower->broadcast();
+        }
     }
 };
 

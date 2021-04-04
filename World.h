@@ -25,6 +25,8 @@ public:
     const std::vector<std::vector<Tile>>& tiles() const;
     const Tile& tile(size_t x, size_t y) const;
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
+    const std::vector<std::shared_ptr<RadioTower>>& radioTowers() const { return _radioTowers; }
+
 
 private:
     void initRadio();

@@ -23,9 +23,6 @@ public:
     size_t y() const;
     size_t frequency() const;
     bool isOn() const;
-
-    void setX(const size_t x);
-    void setY(const size_t y);
     void setFrequency(const size_t frequency);
 
     bool turnRadio() {

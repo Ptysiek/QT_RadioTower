@@ -15,8 +15,4 @@ size_t Radio::frequency() const { return _currentFrequency; }
 
 bool Radio::isOn() const { return _isOn; }
 
-void Radio::setX(const size_t x) { _x = x; }
-
-void Radio::setY(const size_t y) { _y = y; }
-
 void Radio::setFrequency(const size_t frequency) { _currentFrequency = frequency; }
