@@ -38,7 +38,10 @@ public:
                 }
             }
             else if (userInput == "RS") {
-                qInfo() << " enter radio frequency: ";
+                qInfo() << " enter radio frequency: [" << _world.minRadioFrequency() << ", " << _world.maxRadioFrequency() << "]";
+                if (!setRadioFrequency(_world.radio())) {
+                    qInfo() << " incorrect data typed";
+                }
             }
             else if (userInput == "RA") {
             }
@@ -69,7 +72,7 @@ private:
     }
 
     void showUserInterface() {
-        qInfo() << "  [m] -> show map\n"
+        qInfo() << "  [m] -> show map of radio towers\n"
             << " [rt] -> turn radio on / off\n"
             << " [rm] -> move radio\n"
             << " [rs] -> set radio frequency\n"
@@ -86,6 +89,7 @@ private:
 
     void listenToRadio(const Radio& radio) {
         qInfo(" radio says: \"%s\"", radio.play().c_str());
+        qInfo() << " current radio frequency: [" << _world.radio().frequency() << "]";
     }
 
     bool moveRadio(Radio& radio) {
@@ -101,6 +105,20 @@ private:
             return false;
         }
         radio.move(x, y, _world.tile(x, y));
+        return true;
+    }
+
+    bool setRadioFrequency(Radio& radio) {
+        auto numberInput = getUserInput().split(" ");
+        if (numberInput.size() < 1) {
+            return false;
+        }
+        bool isF = false;
+        const size_t f = static_cast<size_t>(numberInput[0].toInt(&isF));
+        if (!isF || f < (_world.minRadioFrequency()) || f > (_world.maxRadioFrequency())) {
+            return false;
+        }
+        radio.setFrequency(f);
         return true;
     }
 

@@ -19,3 +19,11 @@ size_t RadioTower::y() const {
 size_t RadioTower::range() const {
     return _range;
 }
+
+void RadioTower::addChannel(const Channel &&channel) {
+    _channels.emplace_back(channel);
+}
+
+void RadioTower::broadcast() const {
+    emit signal(_channels);
+}

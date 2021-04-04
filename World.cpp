@@ -1,5 +1,15 @@
 #include "World.h"
 
+size_t World::minRadioFrequency() const
+{
+    return _minRadioFrequency;
+}
+
+size_t World::maxRadioFrequency() const
+{
+    return _maxRadioFrequency;
+}
+
 World::World():
     _minRadioFrequency(75),
     _maxRadioFrequency(256),
@@ -12,6 +22,12 @@ World::World():
     giveRadioTowersChannelRepertuars();
     initRadio();
 }
+
+size_t World::size() const { return _matrixSize; }
+
+Radio &World::radio() { return _radio; }
+
+const Radio &World::radio() const { return _radio; }
 
 const std::vector<std::vector<Tile> > &World::tiles() const { return _tiles; }
 
@@ -29,6 +45,8 @@ bool World::setTile(const size_t x, const size_t y, std::shared_ptr<RadioTower> 
         return false;
     }
 }
+
+const std::vector<std::shared_ptr<RadioTower> > &World::radioTowers() const { return _radioTowers; }
 
 std::vector<std::vector<Tile> > World::initTiles() const {
     std::vector<std::vector<Tile>> rows(_matrixSize);

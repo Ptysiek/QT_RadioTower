@@ -45,6 +45,19 @@ void Radio::onSignal(const std::vector<Channel> &channels) {
     }
 }
 
+std::string Radio::browseChannels() const {
+    std::string output = "white-noise";
+    for (const auto& [ID, channel] : _channels) {
+        if ((_currentFrequency -2 < channel._frequency) && (_currentFrequency +2 > channel._frequency)) {
+            return "[channel: " + ID + "]  " + channel._genre;
+        }
+        if ((_currentFrequency -5 < channel._frequency) && (_currentFrequency +5 > channel._frequency)) {
+            output = "distorted-sound";
+        }
+    }
+    return output;
+}
+
 void Radio::disconnectAll() {
     for (auto& radioTower : _lastlyConnected._towersInRange) {
         if (radioTower.expired()) {

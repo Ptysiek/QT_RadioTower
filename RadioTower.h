@@ -21,12 +21,8 @@ public:
     size_t x() const;
     size_t y() const;
     size_t range() const;
-    void addChannel(const Channel&& channel) {
-        _channels.emplace_back(channel);
-    }
-    void broadcast() const {
-        emit signal(_channels);
-    }
+    void addChannel(const Channel&& channel);
+    void broadcast() const;
 
 signals:
     void signal(const std::vector<Channel>& channels) const;

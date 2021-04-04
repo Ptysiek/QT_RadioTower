@@ -21,8 +21,9 @@ class World {
     std::vector<std::shared_ptr<RadioTower>> _radioTowers;
 
 public:
-    World();
-
+    World();    
+    size_t minRadioFrequency() const;
+    size_t maxRadioFrequency() const;
     size_t size() const;
     Radio& radio();
     const Radio& radio() const;
@@ -30,7 +31,6 @@ public:
     const Tile& tile(size_t x, size_t y) const;
     bool setTile(size_t x, size_t y, std::shared_ptr<RadioTower> radioTower);
     const std::vector<std::shared_ptr<RadioTower>>& radioTowers() const;
-
 
 private:
     std::vector<std::vector<Tile>> initTiles() const;
