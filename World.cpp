@@ -14,7 +14,7 @@ World::World():
     _minRadioFrequency(75),
     _maxRadioFrequency(256),
     _matrixSize(20),
-    _radio(),
+    _radio(_minRadioFrequency, _maxRadioFrequency),
     _tiles(initTiles()),
     _radioTowers(initRadioTowers())
 {

@@ -44,6 +44,7 @@ public:
                 }
             }
             else if (userInput == "RA") {
+                _world.radio().autoSetFrequency();
             }
             else if (userInput == "Q") {
                 qInfo() << " quiting program..";

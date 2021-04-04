@@ -1,6 +1,8 @@
 #include "Radio.h"
 
-Radio::Radio():
+Radio::Radio(size_t minFrequency, size_t maxFrequency):
+    _minRadioFrequency(minFrequency),
+    _maxRadioFrequency(maxFrequency),
     _x(),
     _y(),
     _currentFrequency(),
@@ -17,6 +19,18 @@ size_t Radio::frequency() const { return _currentFrequency; }
 bool Radio::isOn() const { return _isOn; }
 
 void Radio::setFrequency(const size_t frequency) { _currentFrequency = frequency; }
+
+bool Radio::autoSetFrequency() {
+    if (!_isOn) {
+        return false;
+    }
+    if (_channels.empty()) {
+        return false;
+    }
+    const size_t newFrequency = _channels.begin()->second._frequency;
+    setFrequency(newFrequency);
+    return true;
+}
 
 bool Radio::turnRadio() {
     _isOn = !_isOn;
