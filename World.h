@@ -1,6 +1,4 @@
 #pragma once
-
-#include <exception>
 #include <memory>
 #include <QRandomGenerator>
 #include <vector>
