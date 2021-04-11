@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 
-#include "Program.h"
+#include "../source/Program.h"
 
 
 int main(int argc, char *argv[]) {

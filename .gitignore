@@ -1,1 +1,10 @@
-RadioTower.pro.user
+build-*
+
+ConsoleBuild/RadioTower.pro.user
+FelgoBuild/RadioTower.pro.user
+
+FelgoBuild/android/*
+FelgoBuild/assets/*
+FelgoBuild/ios/*
+FelgoBuild/macx/*
+FelgoBuild/win/*
