@@ -1,5 +1,5 @@
 # allows to add DEPLOYMENTFOLDERS and links to the Felgo library and QtCreator auto-completion
-#CONFIG += felgo
+CONFIG += felgo
 
 # uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 # for the remaining steps to build a custom Live Code Reload app see here: https://felgo.com/custom-code-reload-app/
@@ -38,14 +38,7 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += \
-    source/Map.cpp \
-    source/MusicGenreFactory.cpp \
-    source/Program.cpp \
-    source/Radio.cpp \
-    source/RadioTower.cpp \
-    source/World.cpp \
-    source/main.cpp
+SOURCES += main.cpp
 
 
 android {
@@ -65,13 +58,3 @@ win32 {
 macx {
     ICON = macx/app_icon.icns
 }
-
-HEADERS += \
-    source/Channel.h \
-    source/Map.h \
-    source/MusicGenreFactory.h \
-    source/Program.h \
-    source/Radio.h \
-    source/RadioTower.h \
-    source/Tile.h \
-    source/World.h
